@@ -1,9 +1,9 @@
 import pygame
 from random import randint
 width=800
-hight=600
+height=600
 pygame.init() #As necessary as import, initalizes pygame
-gameDisplay = pygame.display.set_mode((width,hight))#Makes window
+gameDisplay = pygame.display.set_mode((width,height))#Makes window
 pygame.display.set_caption('Demo')#Titles window
 clock = pygame.time.Clock()#Keeps time for pygame
 
@@ -11,8 +11,10 @@ end = False
 gameDisplay.fill((0,0,255))
 
 def drawShape():
-    return pygame.draw.rect(gameDisplay, (randint(0,0),randint(0,0),randint(0,255)),
-     (randint(0,0.75*width), randint(0,0.75*hight), randint(0,0.5*width), randint(0,0.5*width)))
+    pygame.draw.rect(gameDisplay, (randint(0,255),randint(0,255),randint(0,255)),
+     (randint(0,0.75*width), randint(0,0.75*height), randint(0,0.5*width), randint(0,0.5*width)))
+    pygame.draw.circle(gameDisplay, (randint(0,255),randint(0,255),randint(0,255)),
+     ((randint(0,0.9*width)),(randint(0,0.9*height))), (randint(0,0.2*width)), 0)
   
 
 while not end:
