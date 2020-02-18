@@ -41,7 +41,7 @@ while not end:
         if event.type == pygame.QUIT:
             end = True
     lastx, lasty = pygame.mouse.get_pos()
-    pygame.display.update(Line)
+    pygame.display.update()
 
     clock.tick(60)
 
