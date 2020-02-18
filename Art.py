@@ -1,52 +1,43 @@
 import pygame
-from random import randint
-width=800
-height=600
+
+width, height = 800, 600
 pygame.init() #As necessary as import, initalizes pygame
-global gameDisplay 
-gameDisplay = pygame.display.set_mode((width,height))#Makes window
-pygame.display.set_caption('Demo')#Titles window
-clock = pygame.time.Clock()#Keeps time for pygame
-
-
+gameDisplay = pygame.display.set_mode((width,height)) #Makes window
+pygame.display.set_caption('Demo') #Titles window
+clock = pygame.time.Clock() #Keeps time for pygame
 gameDisplay.fill((0,0,255))
 
 class Draw:
     def __init__(self):
         self.color = (255, 0, 0)
 
-    def update(self, x, y):
-        self.x = x
-        self.y = y
-        pygame.draw.circle(gameDisplay, self.color, (self.x, self.y), (5))
-
+    def update(self, from_x, from_y, to_x, to_y):
+        pygame.draw.circle(gameDisplay, self.color, (from_x, from_y), 5)
+        pygame.draw.line(gameDisplay, self.color, (from_x, from_y), (to_x, to_y), 10)
+        pygame.draw.circle(gameDisplay, self.color, (to_x, to_y), 5)
 
 end = False
 down = False
-Line = Draw()
+line = Draw()
 while not end:
-    x, y = pygame.mouse.get_pos()
-    #drawShape()
-    #pygame.draw.rect(gameDisplay, (0,255,0), (10, 10, 4, 4))
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
+            lastx, lasty = event.pos
             down = True
-
         if event.type == pygame.MOUSEBUTTONUP:
             down = False
-
-        if down:
-            Line.update(x, y)
-
         if event.type == pygame.QUIT:
             end = True
-    lastx, lasty = pygame.mouse.get_pos()
-    pygame.display.update()
 
+    x, y = pygame.mouse.get_pos() 
+    if down:
+        line.update(lastx, lasty, x, y)
+    lastx, lasty = x, y
+
+    pygame.display.update()
     clock.tick(60)
 
-pygame.quit()
-        
+pygame.quit()      
 
 
 
