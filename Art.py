@@ -3,6 +3,7 @@ from random import randint
 width=800
 height=600
 pygame.init() #As necessary as import, initalizes pygame
+global gameDisplay 
 gameDisplay = pygame.display.set_mode((width,height))#Makes window
 pygame.display.set_caption('Demo')#Titles window
 clock = pygame.time.Clock()#Keeps time for pygame
@@ -11,16 +12,18 @@ clock = pygame.time.Clock()#Keeps time for pygame
 gameDisplay.fill((0,0,255))
 
 class Draw:
-    def __init__(self, x, y, lastx, lasty):
+    def __init__(self):
+        self.color = (255, 0, 0)
+
+    def update(self, x, y):
         self.x = x
         self.y = y
-        self.lastx = lastx
-        self.lasty = lasty
-
+        pygame.draw.circle(gameDisplay, self.color, (self.x, self.y), (5))
 
 
 end = False
 down = False
+Line = Draw()
 while not end:
     x, y = pygame.mouse.get_pos()
     #drawShape()
@@ -33,12 +36,12 @@ while not end:
             down = False
 
         if down:
-            pass
+            Line.update(x, y)
 
         if event.type == pygame.QUIT:
             end = True
     lastx, lasty = pygame.mouse.get_pos()
-    pygame.display.flip()
+    pygame.display.update(Line)
 
     clock.tick(60)
 
