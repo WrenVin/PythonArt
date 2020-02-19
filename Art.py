@@ -6,6 +6,8 @@ gameDisplay = pygame.display.set_mode((width,height)) #Makes window
 pygame.display.set_caption('Demo') #Titles window
 clock = pygame.time.Clock() #Keeps time for pygame
 gameDisplay.fill((0,0,0))
+loadimg = pygame.image.load('test.png')
+gameDisplay.blit(loadimg, (0,0))
 
 class Draw:
     def __init__(self):
@@ -24,18 +26,19 @@ down = False
 line = Draw()
 while not end:
     key = pygame.key.get_pressed()
+    if key[pygame.K_s]:
+        SaveScreen(gameDisplay, 'test.png')
+        print('Yay')
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             lastx, lasty = event.pos
             down = True
         if event.type == pygame.MOUSEBUTTONUP:
             down = False
-            
         if event.type == pygame.QUIT:
             end = True
-        if key[K_S]:
-            SaveScreen(gameDisplay, 'test.png')
-            print('Yay')
+        
+    
 
     x, y = pygame.mouse.get_pos() 
     if down:
